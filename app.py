@@ -47,7 +47,7 @@ page = st.sidebar.radio("Go to", ["Main Page", "Principal Volume", "Betting Freq
 # Check if the user is on the "Main Page" page
 if page == "Main Page":
     # Page title and update time display
-    st.title('Principal Dashboard - GreenAleph I')
+    st.title('Principal Dashboard - GA_WTT')
     st.markdown(f"**Last Update:** {last_update_time}", unsafe_allow_html=True)
 
           # SQL query for Active Principal by League bar chart
@@ -55,7 +55,7 @@ if page == "Main Page":
     WITH DistinctBets AS (
         SELECT DISTINCT WagerID, DollarsAtStake, NetProfit
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
           AND LegCount = 1
     )
@@ -115,7 +115,7 @@ if page == "Main Page":
     WITH ActiveBets AS (
         SELECT DollarsAtStake, NetProfit
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
     ),
     TotalBets AS (
@@ -125,7 +125,7 @@ if page == "Main Page":
     TotalNetProfit AS (
         SELECT SUM(NetProfit) AS TotalNetProfit
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
     )
     SELECT 
         (TotalBets.TotalDollarsAtStake - COALESCE(TotalNetProfit.TotalNetProfit, 0)) AS TotalDollarsDeployed
@@ -167,7 +167,7 @@ if page == "Main Page":
         SELECT DISTINCT b.WagerID, b.NetProfit, l.LeagueName
         FROM bets b
         JOIN legs l ON b.WagerID = l.WagerID
-        WHERE b.WhichBankroll = 'GreenAleph'
+        WHERE b.WhichBankroll = 'GA_WTT'
         AND b.LegCount = 1
     ),
     LeagueSums AS (
@@ -187,7 +187,7 @@ if page == "Main Page":
     FROM 
         bets b
     WHERE 
-        b.WhichBankroll = 'GreenAleph'
+        b.WhichBankroll = 'GA_WTT'
     AND b.WagerID IN (SELECT DISTINCT WagerID FROM legs);
     """
 
@@ -229,7 +229,7 @@ if page == "Main Page":
             DATE_FORMAT(DateTimePlaced, '%Y-%m') AS Month,
             SUM(NetProfit) AS TotalNetProfit
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
         GROUP BY Month
         ORDER BY Month;
     """
@@ -301,13 +301,13 @@ if page == "Main Page":
 
 
 if page == "Principal Volume":
-    st.title("Principal Volume (GA1)")
+    st.title("Principal Volume (GA_WTT)")
 
     # Define custom color mapping
     league_colors = {
         'ATP': 'green',
         'WTA': 'yellow',
-        'NBA': 'darkorange',
+        'NBA 2026': 'darkorange',
         'NCAA Men\'s Basketball': 'lightcoral',  # Light orange
         'Olympics': 'black',
         'NFL 2026': 'purple',
@@ -321,7 +321,7 @@ if page == "Principal Volume":
             SELECT DISTINCT WagerID, DollarsAtStake, DateTimePlaced
             FROM bets
             WHERE WLCA != 'Cashout'
-              AND WhichBankroll = 'GreenAleph'
+              AND WhichBankroll = 'GA_WTT'
         ),
         MonthlySums AS (
             SELECT 
@@ -344,7 +344,7 @@ if page == "Principal Volume":
             SELECT DISTINCT WagerID, DollarsAtStake, DateTimePlaced
             FROM bets
             WHERE WLCA != 'Cashout'
-              AND WhichBankroll = 'GreenAleph'
+              AND WhichBankroll = 'GA_WTT'
         ),
         WeeklySums AS (
             SELECT 
@@ -367,7 +367,7 @@ if page == "Principal Volume":
             SELECT DISTINCT WagerID, DollarsAtStake, DateTimePlaced
             FROM bets
             WHERE WLCA != 'Cashout'
-              AND WhichBankroll = 'GreenAleph'
+              AND WhichBankroll = 'GA_WTT'
         ),
         DailySums AS (
             SELECT 
@@ -390,7 +390,7 @@ if page == "Principal Volume":
             SELECT DISTINCT WagerID, DollarsAtStake
             FROM bets
             WHERE WLCA != 'Cashout'
-              AND WhichBankroll = 'GreenAleph'
+              AND WhichBankroll = 'GA_WTT'
         )
         SELECT 
             l.LeagueName,
@@ -450,7 +450,7 @@ if page == "Principal Volume":
             plt.tight_layout()
             st.pyplot(plt)
         else:
-            st.warning("No data available for 'GreenAleph' principal volume by month.")
+            st.warning("No data available for 'GA_WTT' principal volume by month.")
     else:
         st.error("Failed to retrieve monthly data from the database.")
 
@@ -491,7 +491,7 @@ if page == "Principal Volume":
             plt.tight_layout()
             st.pyplot(plt)
         else:
-            st.warning("No data available for 'GreenAleph' principal volume by week.")
+            st.warning("No data available for 'GA_WTT' principal volume by week.")
     else:
         st.error("Failed to retrieve weekly data from the database.")
 
@@ -564,7 +564,7 @@ if page == "Principal Volume":
 
 # Adding the new "Betting Frequency" page
 if page == "Betting Frequency":
-    st.title("Betting Frequency (GA1)")
+    st.title("Betting Frequency (GA_WTT)")
 
     # SQL query to get the number of bets by month for 'GreenAleph'
     frequency_query = """
@@ -572,7 +572,7 @@ if page == "Betting Frequency":
             DATE_FORMAT(DateTimePlaced, '%Y-%m') AS Month,
             COUNT(WagerID) AS NumberOfBets
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
         GROUP BY Month
         ORDER BY Month;
     """
@@ -584,7 +584,7 @@ if page == "Betting Frequency":
             COUNT(DISTINCT b.WagerID) AS NumberOfBets
         FROM bets b
         JOIN legs l ON b.WagerID = l.WagerID
-        WHERE b.WhichBankroll = 'GreenAleph'
+        WHERE b.WhichBankroll = 'GA_WTT'
         GROUP BY l.LeagueName
         ORDER BY NumberOfBets DESC;
     """
@@ -625,7 +625,7 @@ if page == "Betting Frequency":
 
             st.pyplot(plt)
         else:
-            st.warning("No data available for 'GreenAleph' betting frequency.")
+            st.warning("No data available for 'GA_WTT' betting frequency.")
     else:
         st.error("Failed to retrieve data from the database.")
 
@@ -650,7 +650,7 @@ if page == "Betting Frequency":
             plt.figure(figsize=(12, 6))
             plt.bar(df_league_frequency['LeagueName'], df_league_frequency['NumberOfBets'])
             plt.ylabel('Number of Bets')
-            plt.title('Number of Bets Placed by League (GreenAleph)')
+            plt.title('Number of Bets Placed by League (GA_WTT)')
             plt.xticks(rotation=45, ha='right')
 
             # Add value labels above each bar
@@ -659,7 +659,7 @@ if page == "Betting Frequency":
 
             st.pyplot(plt)
         else:
-            st.warning("No data available for 'GreenAleph' betting frequency by league.")
+            st.warning("No data available for 'GA_WTT' betting frequency by league.")
     else:
         st.error("Failed to retrieve data from the database.")
 
@@ -671,7 +671,7 @@ if page == "Betting Frequency":
 
 elif page == "NBA Charts":
     # NBA Charts
-    st.title('NBA Active Bets - GA1')
+    st.title('NBA 2026 Active Bets - GA_WTT')
 
     # --- teams to EXCLUDE for “Championship” / “Conference Winner” ---
     EXCLUDED_NBA_TEAMS = [
@@ -690,7 +690,7 @@ elif page == "NBA Charts":
     WITH DistinctBets AS (
         SELECT DISTINCT WagerID, DollarsAtStake
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
     ),
     EventTypeSums AS (
@@ -699,7 +699,7 @@ elif page == "NBA Charts":
         FROM DistinctBets db
         JOIN (SELECT DISTINCT WagerID, EventType, LeagueName
               FROM legs) l ON db.WagerID = l.WagerID
-        WHERE l.LeagueName = 'NBA'
+        WHERE l.LeagueName = 'NBA 2026'
         GROUP BY l.EventType
     )
     SELECT * FROM EventTypeSums
@@ -709,7 +709,7 @@ elif page == "NBA Charts":
     FROM DistinctBets db
     JOIN (SELECT DISTINCT WagerID, LeagueName
           FROM legs) l ON db.WagerID = l.WagerID
-    WHERE l.LeagueName = 'NBA';
+    WHERE l.LeagueName = 'NBA 2026';
     """
     first_chart_df = pd.DataFrame(get_data_from_db(first_chart_query))
     first_chart_df['TotalDollarsAtStake'] = first_chart_df['TotalDollarsAtStake'].astype(float).round(0)
@@ -721,7 +721,7 @@ elif page == "NBA Charts":
     ax.bar(first_chart_df['EventType'], first_chart_df['TotalDollarsAtStake'],
            color=[pastel[i % len(pastel)] for i in range(len(first_chart_df))],
            width=0.6, edgecolor='black')
-    ax.set_title('Active Principal by EventType (GA1)', fontsize=18, fontweight='bold')
+    ax.set_title('Active Principal by EventType (GA_WTT)', fontsize=18, fontweight='bold')
     ax.set_ylabel('Total Dollars At Stake ($)', fontsize=14, fontweight='bold')
     for bar in ax.patches:
         ax.annotate(f'{bar.get_height():,.0f}',
@@ -746,9 +746,9 @@ elif page == "NBA Charts":
     SELECT DISTINCT l.EventLabel
     FROM bets b
     JOIN legs l ON b.WagerID = l.WagerID
-    WHERE l.LeagueName = 'NBA'
+    WHERE l.LeagueName = 'NBA 2026'
       AND l.EventType = '{event_type_option}'
-      AND b.WhichBankroll = 'GreenAleph'
+      AND b.WhichBankroll = 'GA_WTT'
       AND b.WLCA = 'Active';
     """
     event_label_option = st.selectbox(
@@ -763,7 +763,7 @@ elif page == "NBA Charts":
     WITH DistinctBets AS (
         SELECT DISTINCT WagerID, DollarsAtStake, PotentialPayout
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
           AND LegCount = 1
     )
@@ -772,7 +772,7 @@ elif page == "NBA Charts":
            SUM(db.PotentialPayout) AS TotalPotentialPayout
     FROM DistinctBets db
     JOIN legs l ON db.WagerID = l.WagerID
-    WHERE l.LeagueName = 'NBA'
+    WHERE l.LeagueName = 'NBA 2026'
       AND l.EventType = '{event_type_option}'
       AND l.EventLabel = '{event_label_option}'
     GROUP BY l.ParticipantName;
@@ -824,16 +824,16 @@ elif page == "NBA Charts":
     st.pyplot(fig)
 
     # 4️⃣  Parlays section  ────────────────────────────────────────
-    st.header("NBA Parlays - GA1")
+    st.header("NBA Parlays - GA_WTT")
     parlay_count_query = f"""
     SELECT l.ParticipantName,
            COUNT(DISTINCT b.WagerID) AS NumberOfParlays
     FROM bets b
     JOIN legs l ON b.WagerID = l.WagerID
-    WHERE b.WhichBankroll = 'GreenAleph'
+    WHERE b.WhichBankroll = 'GA_WTT'
       AND b.WLCA = 'Active'
       AND b.LegCount > 1
-      AND l.LeagueName = 'NBA'
+      AND l.LeagueName = 'NBA 2026'
       AND l.EventType = %s
     GROUP BY l.ParticipantName
     ORDER BY NumberOfParlays DESC;
@@ -866,10 +866,10 @@ elif page == "NBA Charts":
            SUM(b.DollarsAtStake) AS TotalDollarsAtStake
     FROM bets b
     JOIN legs l ON b.WagerID = l.WagerID
-    WHERE b.WhichBankroll = 'GreenAleph'
+    WHERE b.WhichBankroll = 'GA_WTT'
       AND b.WLCA = 'Active'
       AND b.LegCount > 1
-      AND l.LeagueName = 'NBA'
+      AND l.LeagueName = 'NBA 2026'
       AND l.EventType = %s
     GROUP BY l.ParticipantName
     ORDER BY TotalDollarsAtStake DESC;
@@ -905,14 +905,14 @@ elif page == "NBA Charts":
 
 elif page == "NCAAB Charts":
     # NCAAB Charts
-    st.title('NCAAB Active Bets - GA1')
+    st.title('NCAAB Active Bets - GA_WTT')
 
     # SQL query to fetch data for the first bar chart
     first_chart_query = """
     WITH DistinctBets AS (
         SELECT DISTINCT WagerID, DollarsAtStake
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
     ),
     EventTypeSums AS (
@@ -1011,7 +1011,7 @@ elif page == "NCAAB Charts":
             WHERE
                 l.LeagueName = 'NCAA Mens Basketball'
                 AND l.EventType = '{event_type_option}'
-                AND b.WhichBankroll = 'GreenAleph'
+                AND b.WhichBankroll = 'GA_WTT'
                 AND b.WLCA = 'Active'
                 ;
             """
@@ -1031,7 +1031,7 @@ elif page == "NCAAB Charts":
                     WITH DistinctBets AS (
                         SELECT DISTINCT WagerID, DollarsAtStake, PotentialPayout
                         FROM bets
-                        WHERE WhichBankroll = 'GreenAleph'
+                        WHERE WhichBankroll = 'GA_WTT'
                           AND WLCA = 'Active'
                           AND LegCount = 1
                     )
@@ -1134,7 +1134,7 @@ elif page == "NCAAB Charts":
 
 
             # Add a new section at the bottom for tracking the number of parlays by participant
-            st.header("NCAAB Parlays - GA1")
+            st.header("NCAAB Parlays - GA_WTT")
 
             # SQL query to count the number of parlays each participant is involved in for the selected EventType
             parlay_count_query = f"""
@@ -1146,7 +1146,7 @@ elif page == "NCAAB Charts":
             JOIN 
                 legs l ON b.WagerID = l.WagerID
             WHERE 
-                b.WhichBankroll = 'GreenAleph'
+                b.WhichBankroll = 'GA_WTT'
                 AND b.WLCA = 'Active'
                 AND b.LegCount > 1  -- Only count parlays
                 AND l.LeagueName = 'NCAA Mens Basketball'
@@ -1218,7 +1218,7 @@ elif page == "NCAAB Charts":
                     JOIN 
                         legs l ON b.WagerID = l.WagerID
                     WHERE 
-                        b.WhichBankroll = 'GreenAleph'
+                        b.WhichBankroll = 'GA_WTT'
                         AND b.WLCA = 'Active'
                         AND b.LegCount > 1  -- Only count parlays
                         AND l.LeagueName = 'NCAA Mens Basketball'
@@ -1285,14 +1285,14 @@ elif page == "NCAAB Charts":
 
 elif page == "NHL Charts":
     # NHL Charts
-    st.title('NHL Active Bets - GA1')
+    st.title('NHL Active Bets - GA_WTT')
 
     # SQL query to fetch data for the first bar chart
     first_chart_query = """
     WITH DistinctBets AS (
         SELECT DISTINCT WagerID, DollarsAtStake
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
     ),
     EventTypeSums AS (
@@ -1391,7 +1391,7 @@ elif page == "NHL Charts":
             WHERE
                 l.LeagueName = 'NHL'
                 AND l.EventType = '{event_type_option}'
-                AND b.WhichBankroll = 'GreenAleph'
+                AND b.WhichBankroll = 'GA_WTT'
                 AND b.WLCA = 'Active'
                 ;
             """
@@ -1411,7 +1411,7 @@ elif page == "NHL Charts":
                     WITH DistinctBets AS (
                         SELECT DISTINCT WagerID, DollarsAtStake, PotentialPayout
                         FROM bets
-                        WHERE WhichBankroll = 'GreenAleph'
+                        WHERE WhichBankroll = 'GA_WTT'
                           AND WLCA = 'Active'
                           AND LegCount = 1
                     )
@@ -1514,7 +1514,7 @@ elif page == "NHL Charts":
 
 
             # Add a new section at the bottom for tracking the number of parlays by participant
-            st.header("NHL Parlays - GA1")
+            st.header("NHL Parlays - GA_WTT")
 
             # SQL query to count the number of parlays each participant is involved in for the selected EventType
             parlay_count_query = f"""
@@ -1526,7 +1526,7 @@ elif page == "NHL Charts":
             JOIN 
                 legs l ON b.WagerID = l.WagerID
             WHERE 
-                b.WhichBankroll = 'GreenAleph'
+                b.WhichBankroll = 'GA_WTT'
                 AND b.WLCA = 'Active'
                 AND b.LegCount > 1  -- Only count parlays
                 AND l.LeagueName = 'NHL'
@@ -1598,7 +1598,7 @@ elif page == "NHL Charts":
                     JOIN 
                         legs l ON b.WagerID = l.WagerID
                     WHERE 
-                        b.WhichBankroll = 'GreenAleph'
+                        b.WhichBankroll = 'GA_WTT'
                         AND b.WLCA = 'Active'
                         AND b.LegCount > 1  -- Only count parlays
                         AND l.LeagueName = 'NHL'
@@ -1673,14 +1673,14 @@ elif page == "NHL Charts":
 
 elif page == "NFL Charts":
     # NFL Charts
-    st.title('NFL 2026 Active Bets - GA1')
+    st.title('NFL 2026 Active Bets - GA_WTT')
 
     # SQL query to fetch data for the first bar chart
     first_chart_query = """
     WITH DistinctBets AS (
         SELECT DISTINCT WagerID, DollarsAtStake
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
     ),
     EventTypeSums AS (
@@ -1804,7 +1804,7 @@ elif page == "NFL Charts":
             FROM bets b
             JOIN legs l ON b.WagerID = l.WagerID
             WHERE 
-                b.WhichBankroll = 'GreenAleph'
+                b.WhichBankroll = 'GA_WTT'
                 AND l.LeagueName = 'NFL 2026'
                 AND l.EventType = '{event_type_option}'
                 AND b.LegCount = 1
@@ -1824,7 +1824,7 @@ elif page == "NFL Charts":
             WHERE
                 l.LeagueName = 'NFL 2026'
                 AND l.EventType = '{event_type_option}'
-                AND b.WhichBankroll = 'GreenAleph'
+                AND b.WhichBankroll = 'GA_WTT'
                 AND {wlca_condition}
                 ;
             """
@@ -1843,7 +1843,7 @@ elif page == "NFL Charts":
                     WITH DistinctBets AS (
                         SELECT DISTINCT WagerID, DollarsAtStake, PotentialPayout
                         FROM bets
-                        WHERE WhichBankroll = 'GreenAleph'
+                        WHERE WhichBankroll = 'GA_WTT'
                           AND {wlca_condition}
                           AND LegCount = 1
                     )
@@ -1948,7 +1948,7 @@ elif page == "NFL Charts":
 
 
     # Add a new section at the bottom for tracking NFL parlays
-    st.header("NFL Parlays - GA1")
+    st.header("NFL Parlays - GA_WTT")
     
     # SQL query to count the number of parlays each participant is involved in for the selected EventType
     parlay_count_query = f"""
@@ -1960,7 +1960,7 @@ elif page == "NFL Charts":
     JOIN 
         legs l ON b.WagerID = l.WagerID
     WHERE 
-        b.WhichBankroll = 'GreenAleph'
+        b.WhichBankroll = 'GA_WTT'
         AND b.WLCA = 'Active'
         AND b.LegCount > 1  -- Only count parlays
         AND l.LeagueName = 'NFL 2026'
@@ -2031,7 +2031,7 @@ elif page == "NFL Charts":
             JOIN 
                 legs l ON b.WagerID = l.WagerID
             WHERE 
-                b.WhichBankroll = 'GreenAleph'
+                b.WhichBankroll = 'GA_WTT'
                 AND b.WLCA = 'Active'
                 AND b.LegCount > 1  -- Only count parlays
                 AND l.LeagueName = 'NFL 2026'
@@ -2124,8 +2124,8 @@ elif page == "NFL Playoffs EV":
         WHERE 
             bets.LegCount = 1
             AND bets.WLCA = 'Active'
-            AND bets.WhichBankroll = 'GreenAleph'
-            AND legs.LeagueName = 'NFL'
+            AND bets.WhichBankroll = 'GA_WTT'
+            AND legs.LeagueName = 'NFL 2026'
             AND legs.EventType IN ('Conference Winner', 'Championship', 'Quarterfinals')
         GROUP BY legs.ParticipantName, legs.EventType;
     """
@@ -2260,7 +2260,7 @@ elif page == "NFL Playoffs EV":
 
 elif page == "Tennis Charts":
     
-    st.title('Tennis Futures and Active Bets - GA1')
+    st.title('Tennis Futures and Active Bets - GA_WTT')
 
     # Function to fetch and plot bar charts
     def plot_bar_chart(data, title, ylabel):
@@ -2303,7 +2303,7 @@ elif page == "Tennis Charts":
     WITH DistinctBets AS (
         SELECT DISTINCT WagerID, DollarsAtStake
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
           AND EXISTS (
               SELECT 1 
@@ -2347,7 +2347,7 @@ elif page == "Tennis Charts":
             WHERE
                 l.LeagueName = '{league_name}'
                 AND l.EventLabel = '{event_label_option}'
-                AND b.WhichBankroll = 'GreenAleph'
+                AND b.WhichBankroll = 'GA_WTT'
                 AND l.IsFuture = 'Yes'
                 AND b.WLCA = 'Active';
             """
@@ -2364,7 +2364,7 @@ elif page == "Tennis Charts":
                     WITH DistinctBets AS (
                         SELECT DISTINCT WagerID, DollarsAtStake, PotentialPayout
                         FROM bets
-                        WHERE WhichBankroll = 'GreenAleph'
+                        WHERE WhichBankroll = 'GA_WTT'
                           AND LegCount = 1
                           AND WLCA = 'Active'
                     )
@@ -2478,14 +2478,14 @@ elif page == "Tennis Charts":
                 
 elif page == "MLB Charts":
     # MLB Charts
-    st.title('MLB 2025 Active Bets - GA1')
+    st.title('MLB 2025 Active Bets - GA_WTT')
 
     # SQL query to fetch data for the main bar chart
     main_query = """
     WITH DistinctBets AS (
         SELECT DISTINCT WagerID, DollarsAtStake
         FROM bets
-        WHERE WhichBankroll = 'GreenAleph'
+        WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
           AND LegCount = 1
     ),
@@ -2588,7 +2588,7 @@ elif page == "MLB Charts":
             WHERE
                 l.LeagueName = 'MLB 2025'
                 AND l.EventType = '{event_type_option}'
-                AND b.WhichBankroll = 'GreenAleph'
+                AND b.WhichBankroll = 'GA_WTT'
                 AND b.WLCA = 'Active';
             """
             
@@ -2607,7 +2607,7 @@ elif page == "MLB Charts":
                     WITH DistinctBets AS (
                         SELECT DISTINCT WagerID, DollarsAtStake, PotentialPayout
                         FROM bets
-                        WHERE WhichBankroll = 'GreenAleph'
+                        WHERE WhichBankroll = 'GA_WTT'
                           AND WLCA = 'Active'
                           AND LegCount = 1
                     )
@@ -2720,7 +2720,7 @@ elif page == "MLB Charts":
                         
 elif page == "MLB Principal Tables":
     # MLB Principal Tables
-    st.title('MLB 2025 Principal Tables - GA1')
+    st.title('MLB 2025 Principal Tables - GA_WTT')
     
     # SQL query to fetch the data for Active Straight Bets
     straight_bets_query = """
@@ -2734,7 +2734,7 @@ elif page == "MLB Principal Tables":
         JOIN legs l ON b.WagerID = l.WagerID
         WHERE b.LegCount = 1
           AND l.LeagueName = 'MLB 2025'
-          AND b.WhichBankroll = 'GreenAleph'
+          AND b.WhichBankroll = 'GA_WTT'
           AND b.WLCA = 'Active'
         GROUP BY l.EventType, l.ParticipantName
         
@@ -2749,7 +2749,7 @@ elif page == "MLB Principal Tables":
         JOIN legs l ON b.WagerID = l.WagerID
         WHERE b.LegCount = 1
           AND l.LeagueName = 'MLB 2025'
-          AND b.WhichBankroll = 'GreenAleph'
+          AND b.WhichBankroll = 'GA_WTT'
           AND b.WLCA = 'Active'
         GROUP BY l.EventType
     
@@ -2764,7 +2764,7 @@ elif page == "MLB Principal Tables":
         JOIN legs l ON b.WagerID = l.WagerID
         WHERE b.LegCount = 1
           AND l.LeagueName = 'MLB 2025'
-          AND b.WhichBankroll = 'GreenAleph'
+          AND b.WhichBankroll = 'GA_WTT'
           AND b.WLCA = 'Active'
     )
     
@@ -2798,7 +2798,7 @@ elif page == "MLB Principal Tables":
         legs l ON b.WagerID = l.WagerID
     WHERE 
         l.LeagueName = 'MLB 2025'
-        AND b.WhichBankroll = 'GreenAleph'
+        AND b.WhichBankroll = 'GA_WTT'
         AND b.WLCA = 'Active'
         AND b.LegCount > 1;
     """
@@ -2824,14 +2824,14 @@ elif page == "MLB Principal Tables":
 
 elif page == "NBA Participant Positions":
     # NBA Participant Positions
-    st.title('NBA Participant Positions - GA1')
+    st.title('NBA Participant Positions - GA_WTT')
 
     # Fetch the list of participant names for the dropdown
     participants_query = """
     SELECT DISTINCT ParticipantName 
     FROM legs l
     JOIN bets b ON l.WagerID = b.WagerID
-    WHERE l.LeagueName = 'NBA' AND b.WhichBankroll = 'GreenAleph'
+    WHERE l.LeagueName = 'NBA 2026' AND b.WhichBankroll = 'GA_WTT'
     ORDER BY ParticipantName ASC;
     """
     participants = get_data_from_db(participants_query)
@@ -2864,8 +2864,8 @@ elif page == "NBA Participant Positions":
                 legs l ON b.WagerID = l.WagerID
             WHERE 
                 l.ParticipantName = %s
-                AND b.WhichBankroll = 'GreenAleph'
-                AND l.LeagueName = 'NBA'
+                AND b.WhichBankroll = 'GA_WTT'
+                AND l.LeagueName = 'NBA 2026'
             """
             params = [participant_selected]
 
@@ -2895,14 +2895,14 @@ elif page == "NBA Participant Positions":
 
 elif page == "NFL Participant Positions":
     # NFL Participant Positions
-    st.title('NFL Participant Positions - GA1')
+    st.title('NFL Participant Positions - GA_WTT')
 
     # Fetch the list of participant names for the dropdown
     participants_query = """
     SELECT DISTINCT ParticipantName 
     FROM legs l
     JOIN bets b ON l.WagerID = b.WagerID
-    WHERE l.LeagueName = 'NFL' AND b.WhichBankroll = 'GreenAleph'
+    WHERE l.LeagueName = 'NFL 2026' AND b.WhichBankroll = 'GA_WTT'
     ORDER BY ParticipantName ASC;
     """
     participants = get_data_from_db(participants_query)
@@ -2935,8 +2935,8 @@ elif page == "NFL Participant Positions":
                 legs l ON b.WagerID = l.WagerID
             WHERE 
                 l.ParticipantName = %s
-                AND b.WhichBankroll = 'GreenAleph'
-                AND l.LeagueName = 'NFL'
+                AND b.WhichBankroll = 'GA_WTT'
+                AND l.LeagueName = 'NFL 2026'
             """
             params = [participant_selected]
 
