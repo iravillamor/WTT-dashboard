@@ -566,7 +566,7 @@ if page == "Principal Volume":
 if page == "Betting Frequency":
     st.title("Betting Frequency (GA_WTT)")
 
-    # SQL query to get the number of bets by month for 'GreenAleph'
+    # SQL query to get the number of bets by month for 'GA_WTT'
     frequency_query = """
         SELECT 
             DATE_FORMAT(DateTimePlaced, '%Y-%m') AS Month,
@@ -577,7 +577,7 @@ if page == "Betting Frequency":
         ORDER BY Month;
     """
 
-    # SQL query to get the total betting frequency by LeagueName for 'GreenAleph', counting each WagerID only once
+    # SQL query to get the total betting frequency by LeagueName for 'GA_WTT', counting each WagerID only once
     league_frequency_query = """
         SELECT 
             l.LeagueName,
@@ -615,7 +615,7 @@ if page == "Betting Frequency":
             plt.figure(figsize=(12, 6))
             bars = plt.bar(x_labels, df_frequency['NumberOfBets'])
             plt.ylabel('Number of Bets')
-            plt.title('Number of Bets Placed by Month (GreenAleph)')
+            plt.title('Number of Bets Placed by Month (GA_WTT)')
             plt.xticks(rotation=45, ha='right')
 
             # Add value labels above each bar
