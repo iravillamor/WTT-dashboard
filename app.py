@@ -91,7 +91,7 @@ if page == "Main Page":
         
         fig, ax = plt.subplots(figsize=(15, 10))
         bars = ax.bar(active_principal_df['LeagueName'], active_principal_df['TotalDollarsAtStake'], color=bar_colors, width=0.6, edgecolor='black')
-        ax.set_title('GA1: Total Active Principal', fontsize=18, fontweight='bold')
+        ax.set_title('GA_WTT: Total Active Principal', fontsize=18, fontweight='bold')
         ax.set_ylabel('Total Dollars At Stake ($)', fontsize=14, fontweight='bold')
         for bar in bars:
             height = bar.get_height()
@@ -847,7 +847,7 @@ elif page == "NBA Charts":
         fig, ax = plt.subplots(figsize=(14, 8))
         bars = ax.bar(parlay_df['ParticipantName'], parlay_df['NumberOfParlays'],
                       color='skyblue', edgecolor='black')
-        ax.set_title(f"Parlay Involvement by Participant for {event_type_option} (GA1)",
+        ax.set_title(f"Parlay Involvement by Participant for {event_type_option} (GA_WTT)",
                      fontsize=18, fontweight='bold')
         ax.set_ylabel("Number of Parlays", fontsize=14, fontweight='bold')
         plt.xticks(rotation=45, ha='right', fontsize=12, fontweight='bold')
@@ -886,7 +886,7 @@ elif page == "NBA Charts":
         bars = ax.bar(parlay_dollars_df['ParticipantName'],
                       parlay_dollars_df['TotalDollarsAtStake'],
                       color='lightblue', edgecolor='black')
-        ax.set_title(f"Total Dollars At Stake in Parlays by Participant for {event_type_option} (GA1)",
+        ax.set_title(f"Total Dollars At Stake in Parlays by Participant for {event_type_option} (GA_WTT)",
                      fontsize=18, fontweight='bold')
         ax.set_ylabel("Total Dollars At Stake ($)", fontsize=14, fontweight='bold')
         plt.xticks(rotation=45, ha='right', fontsize=12, fontweight='bold')
@@ -967,7 +967,7 @@ elif page == "NCAAB Charts":
         bars = ax.bar(first_chart_df['EventType'], first_chart_df['TotalDollarsAtStake'], color=[pastel_colors[i % len(pastel_colors)] for i in range(len(first_chart_df['EventType']))], width=0.6, edgecolor='black')
 
         # Add labels and title
-        ax.set_title('Active Principal by EventType (GA1)', fontsize=18, fontweight='bold')
+        ax.set_title('Active Principal by EventType (GA_WTT)', fontsize=18, fontweight='bold')
         ax.set_ylabel('Total Dollars At Stake ($)', fontsize=14, fontweight='bold')
 
         # Annotate each bar with the value (no dollar sign)
@@ -1177,7 +1177,7 @@ elif page == "NCAAB Charts":
                     bars = ax.bar(parlay_df['ParticipantName'], parlay_df['NumberOfParlays'], color='skyblue', edgecolor='black')
                     
                     # Set title and labels
-                    ax.set_title(f"Parlay Involvement by Participant for {event_type_option} (GA1)", fontsize=18, fontweight='bold')
+                    ax.set_title(f"Parlay Involvement by Participant for {event_type_option} (GA_WTT)", fontsize=18, fontweight='bold')
                     ax.set_ylabel("Number of Parlays", fontsize=14, fontweight='bold')
                     
                     # Rotate x-axis labels
@@ -1249,7 +1249,7 @@ elif page == "NCAAB Charts":
                             bars = ax.bar(parlay_dollars_df['ParticipantName'], parlay_dollars_df['TotalDollarsAtStake'], color='lightblue', edgecolor='black')
                             
                             # Set title and labels
-                            ax.set_title(f"Total Dollars At Stake in Parlays by Participant for {event_type_option} (GA1)", fontsize=18, fontweight='bold')
+                            ax.set_title(f"Total Dollars At Stake in Parlays by Participant for {event_type_option} (GA_WTT)", fontsize=18, fontweight='bold')
                             ax.set_ylabel("Total Dollars At Stake ($)", fontsize=14, fontweight='bold')
                             
                             # Rotate x-axis labels
@@ -1347,7 +1347,7 @@ elif page == "NHL Charts":
         bars = ax.bar(first_chart_df['EventType'], first_chart_df['TotalDollarsAtStake'], color=[pastel_colors[i % len(pastel_colors)] for i in range(len(first_chart_df['EventType']))], width=0.6, edgecolor='black')
 
         # Add labels and title
-        ax.set_title('Active Principal by EventType (GA1)', fontsize=18, fontweight='bold')
+        ax.set_title('Active Principal by EventType (GA_WTT)', fontsize=18, fontweight='bold')
         ax.set_ylabel('Total Dollars At Stake ($)', fontsize=14, fontweight='bold')
 
         # Annotate each bar with the value (no dollar sign)
@@ -1557,7 +1557,7 @@ elif page == "NHL Charts":
                     bars = ax.bar(parlay_df['ParticipantName'], parlay_df['NumberOfParlays'], color='skyblue', edgecolor='black')
                     
                     # Set title and labels
-                    ax.set_title(f"Parlay Involvement by Participant for {event_type_option} (GA1)", fontsize=18, fontweight='bold')
+                    ax.set_title(f"Parlay Involvement by Participant for {event_type_option} (GA_WTT)", fontsize=18, fontweight='bold')
                     ax.set_ylabel("Number of Parlays", fontsize=14, fontweight='bold')
                     
                     # Rotate x-axis labels
