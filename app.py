@@ -1629,7 +1629,7 @@ elif page == "NHL Charts":
                             bars = ax.bar(parlay_dollars_df['ParticipantName'], parlay_dollars_df['TotalDollarsAtStake'], color='lightblue', edgecolor='black')
                             
                             # Set title and labels
-                            ax.set_title(f"Total Dollars At Stake in Parlays by Participant for {event_type_option} (GA1)", fontsize=18, fontweight='bold')
+                            ax.set_title(f"Total Dollars At Stake in Parlays by Participant for {event_type_option} (GA_WTT)", fontsize=18, fontweight='bold')
                             ax.set_ylabel("Total Dollars At Stake ($)", fontsize=14, fontweight='bold')
                             
                             # Rotate x-axis labels
@@ -1735,7 +1735,7 @@ elif page == "NFL Charts":
         bars = ax.bar(first_chart_df['EventType'], first_chart_df['TotalDollarsAtStake'], color=[pastel_colors[i % len(pastel_colors)] for i in range(len(first_chart_df['EventType']))], width=0.6, edgecolor='black')
 
         # Add labels and title
-        ax.set_title('Active Principal by EventType (GA1)', fontsize=18, fontweight='bold')
+        ax.set_title('Active Principal by EventType (GA_WTT)', fontsize=18, fontweight='bold')
         ax.set_ylabel('Total Dollars At Stake ($)', fontsize=14, fontweight='bold')
 
         # Annotate each bar with the value (no dollar sign)
@@ -1991,7 +1991,7 @@ elif page == "NFL Charts":
             bars = ax.bar(parlay_df['ParticipantName'], parlay_df['NumberOfParlays'], color='skyblue', edgecolor='black')
             
             # Set title and labels
-            ax.set_title(f"Parlay Involvement by Participant for {event_type_option} (GA1)", fontsize=18, fontweight='bold')
+            ax.set_title(f"Parlay Involvement by Participant for {event_type_option} (GA_WTT)", fontsize=18, fontweight='bold')
             ax.set_ylabel("Number of Parlays", fontsize=14, fontweight='bold')
             
             # Rotate x-axis labels
@@ -2062,7 +2062,7 @@ elif page == "NFL Charts":
                     bars = ax.bar(parlay_dollars_df['ParticipantName'], parlay_dollars_df['TotalDollarsAtStake'], color='lightblue', edgecolor='black')
                     
                     # Set title and labels
-                    ax.set_title(f"Total Dollars At Stake in Parlays by Participant for {event_type_option} (GA1)", fontsize=18, fontweight='bold')
+                    ax.set_title(f"Total Dollars At Stake in Parlays by Participant for {event_type_option} (GA_WTT)", fontsize=18, fontweight='bold')
                     ax.set_ylabel("Total Dollars At Stake ($)", fontsize=14, fontweight='bold')
                     
                     # Rotate x-axis labels
@@ -2528,7 +2528,7 @@ elif page == "MLB Charts":
         main_df = pd.DataFrame(main_data)
 
         # Display the fetched data
-       # st.subheader('Total Dollars At Stake by EventType (GA1)')
+       # st.subheader('Total Dollars At Stake by EventType (GA_WTT)')
         
         # Create data for visualization
         main_df['TotalDollarsAtStake'] = main_df['TotalDollarsAtStake'].astype(float).round(0)
@@ -2544,7 +2544,7 @@ elif page == "MLB Charts":
         bars = ax.bar(main_df['EventType'], main_df['TotalDollarsAtStake'], color=[pastel_colors[i % len(pastel_colors)] for i in range(len(main_df['EventType']))], width=0.6, edgecolor='black')
 
         # Add labels and title
-        ax.set_title('Total Active Principal by EventType (GA1)', fontsize=18, fontweight='bold')
+        ax.set_title('Total Active Principal by EventType (GA_WTT)', fontsize=18, fontweight='bold')
         ax.set_ylabel('Total Dollars At Stake ($)', fontsize=14, fontweight='bold')
 
         # Annotate each bar with the value (no dollar sign)
@@ -2812,12 +2812,12 @@ elif page == "MLB Principal Tables":
     # Display the data
     if straight_bets_data:
         straight_bets_df = pd.DataFrame(straight_bets_data)
-        st.subheader('Active Straight Bets in GA1')
+        st.subheader('Active Straight Bets in GA_WTT')
         st.table(straight_bets_df)
     
     if parlay_bets_data:
         parlay_bets_df = pd.DataFrame(parlay_bets_data)
-        st.subheader('Active Parlay Bets in GA1')
+        st.subheader('Active Parlay Bets in GA_WTT')
         st.table(parlay_bets_df)
 
 
