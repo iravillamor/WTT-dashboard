@@ -781,8 +781,6 @@ elif page == "NBA Charts":
     combined_df = pd.DataFrame(get_data_from_db(combined_query))
 
     # ▸ exclude unwanted teams for title / conference markets
-    if event_type_option in ('Championship', 'Conference Winner'):
-        combined_df = combined_df[~combined_df['ParticipantName'].isin(EXCLUDED_NBA_TEAMS)]
 
     if combined_df.empty:
         st.warning("No data for selected filters.")
