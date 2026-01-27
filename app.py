@@ -692,6 +692,7 @@ elif page == "NBA Charts":
         FROM bets
         WHERE WhichBankroll = 'GA_WTT'
           AND WLCA = 'Active'
+          AND LegCount = 1
     ),
     EventTypeSums AS (
         SELECT l.EventType,
