@@ -673,18 +673,6 @@ elif page == "NBA Charts":
     # NBA Charts
     st.title('NBA 2026 Active Bets - GA_WTT')
 
-    # --- teams to EXCLUDE for “Championship” / “Conference Winner” ---
-    EXCLUDED_NBA_TEAMS = [
-        'Brooklyn Nets', 'Chicago Bulls', 'Dallas Mavericks',
-        'New Orleans Pelicans', 'Philadelphia 76ers', 'Phoenix Suns',
-        'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs',
-        'Toronto Raptors', 'Utah Jazz', 'Washington Wizards',
-        'Atlanta Hawks', 'Charlotte Hornets', 'Los Angeles Clippers', 'Milwaukee Bucks',
-        'Memphis Grizzlies', 'Orlando Magic', 'Miami Heat', 'Detroit Pistons',
-        'Houston Rockets', 'Los Angeles Lakers', 'Boston Celtics', 'Denver Nuggets', 
-        'Golden State Warriors', 'Cleveland Cavaliers'
-    ]
-
     # 1️⃣  Active-principal by EventType  ───────────────────────────
     first_chart_query = """
     WITH DistinctBets AS (
