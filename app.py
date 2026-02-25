@@ -826,8 +826,6 @@ elif page == "NBA Charts":
     ORDER BY NumberOfParlays DESC;
     """
     parlay_df = pd.DataFrame(get_data_from_db(parlay_count_query, [event_type_option]))
-    if event_type_option in ('Championship', 'Conference Winner'):
-        parlay_df = parlay_df[~parlay_df['ParticipantName'].isin(EXCLUDED_NBA_TEAMS)]
 
     if not parlay_df.empty:
         st.subheader(f"Number of Parlays by Participant for {event_type_option}")
@@ -862,10 +860,7 @@ elif page == "NBA Charts":
     ORDER BY TotalDollarsAtStake DESC;
     """
     parlay_dollars_df = pd.DataFrame(get_data_from_db(parlay_dollars_query, [event_type_option]))
-    if event_type_option in ('Championship', 'Conference Winner'):
-        parlay_dollars_df = parlay_dollars_df[
-            ~parlay_dollars_df['ParticipantName'].isin(EXCLUDED_NBA_TEAMS)
-        ]
+
 
     if not parlay_dollars_df.empty:
         st.subheader(f"Total Dollars At Stake in Parlays by Participant for {event_type_option}")
