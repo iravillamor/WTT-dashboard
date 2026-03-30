@@ -906,7 +906,7 @@ elif page == "NCAAB Charts":
         JOIN 
             (SELECT DISTINCT WagerID, EventType, LeagueName FROM legs) l ON db.WagerID = l.WagerID
         WHERE
-            l.LeagueName = 'NCAA Mens Basketball'
+            l.LeagueName = 'NCAA Mens Basketball 2026'
         GROUP BY 
             l.EventType
     )
@@ -922,7 +922,7 @@ elif page == "NCAAB Charts":
     JOIN 
         (SELECT DISTINCT WagerID, LeagueName FROM legs) l ON db.WagerID = l.WagerID
     WHERE
-        l.LeagueName = 'NCAA Mens Basketball';
+        l.LeagueName = 'NCAA Mens Basketball 2026';
     """
 
     # Fetch the data for the first bar chart
@@ -991,7 +991,7 @@ elif page == "NCAAB Charts":
             JOIN 
                 legs l ON b.WagerID = l.WagerID
             WHERE
-                l.LeagueName = 'NCAA Mens Basketball'
+                l.LeagueName = 'NCAA Mens Basketball 2026'
                 AND l.EventType = '{event_type_option}'
                 AND b.WhichBankroll = 'GA_WTT'
                 AND b.WLCA = 'Active'
@@ -1026,7 +1026,7 @@ elif page == "NCAAB Charts":
                     JOIN 
                         legs l ON db.WagerID = l.WagerID
                     WHERE
-                        l.LeagueName = 'NCAA Mens Basketball'
+                        l.LeagueName = 'NCAA Mens Basketball 2026'
                         AND l.EventType = '{event_type_option}'
                         AND l.EventLabel = '{event_label_option}'
                     GROUP BY 
@@ -1131,7 +1131,7 @@ elif page == "NCAAB Charts":
                 b.WhichBankroll = 'GA_WTT'
                 AND b.WLCA = 'Active'
                 AND b.LegCount > 1  -- Only count parlays
-                AND l.LeagueName = 'NCAA Mens Basketball'
+                AND l.LeagueName = 'NCAA Mens Basketball 2026'
                 AND l.EventType = %s
             GROUP BY 
                 l.ParticipantName
@@ -1203,7 +1203,7 @@ elif page == "NCAAB Charts":
                         b.WhichBankroll = 'GA_WTT'
                         AND b.WLCA = 'Active'
                         AND b.LegCount > 1  -- Only count parlays
-                        AND l.LeagueName = 'NCAA Mens Basketball'
+                        AND l.LeagueName = 'NCAA Mens Basketball 2026'
                         AND l.EventType = %s
                     GROUP BY 
                         l.ParticipantName
